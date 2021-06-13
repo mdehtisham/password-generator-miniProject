@@ -22,6 +22,20 @@ const randomFunction = {
 }
 
 
+clipboardEl.addEventListener('click', () => {
+  const textarea = document.createElement('textarea');
+  const password = restultEl.innerText;
+
+  if (!password) return
+
+  textarea.value = password;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove()
+  alert('Password has been copied to clipboard!')
+})
+
 
 generateEl.addEventListener('click', () => {
   const length = +lengthEl.value; // + will parse the string into number
@@ -49,7 +63,8 @@ function generatePassword(lower, upper, number, symbol, length) {
       generatedPassword += randomFunction[funcName]()
     })
   }
-  return generatedPassword;
+  console.log(generatedPassword.length)
+  return generatedPassword.slice(0, length);
 }
 
 
@@ -69,7 +84,3 @@ function getRandomSymbol() {
   return symbols[Math.floor(Math.random() * symbols.length)]
 }
 
-// console.log(getRandomLower())
-// console.log(getRandomUpper())
-// console.log(getRandomNumber())
-// console.log(getRandomSymbol())
